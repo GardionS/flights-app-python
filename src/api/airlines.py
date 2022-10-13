@@ -15,7 +15,8 @@ config = {
     'host': os.getenv("DB_HOST"),
     'port': int(os.getenv("DB_PORT")),
     'user': os.getenv("DB_USER"),
-    'password': os.getenv("DB_PASS")
+    'password': os.getenv("DB_PASS"),
+    'database' : os.getenv("DB_NAME")
 }
 
 @airlines.route('/api/airlines', methods=['GET'])
@@ -25,6 +26,7 @@ def index():
    cur.execute("select * from airlines order by airline")
    row_headers=[x[0] for x in cur.description] 
    rv = cur.fetchall()
+   print(rv)
    json_data=[]
    for result in rv:
         json_data.append(dict(zip(row_headers,result)))
